@@ -1,0 +1,17 @@
+{
+    "name": "smasif/shurjopay-laravel-package",
+    "authors": [
+        {
+            "name": "wasim2263",
+            "email": "abdullahwasim42@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ShurjopayLaravelPackage\\": "src"
+        }
+
+    }
+}
