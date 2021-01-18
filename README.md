@@ -15,7 +15,7 @@ composer require smasif/shurjopay-laravel-package
 
 After successful installation of shurjopay-laravel-package, go to your project and open config folder and then click on app.php file. Append the following line in providers array.
 
-smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider::class,
+#  smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider::class,
 
 Now in order to publish ShurjopayServiceProvider class and run the following command
 
@@ -30,7 +30,7 @@ MERCHANT_USERNAME =
 MERCHANT_PASSWORD =
 MERCHANT_KEY_PREFIX =
 
-Implementation
+#Implementation
 Add the following line in the Class or Controller where the functionality will be implemented
 use smasif\ShurjopayLaravelPackage\ShurjopayService;
 
