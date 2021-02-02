@@ -1,55 +1,78 @@
+
 # README #
 
 ### Authorization of the contributor ##
 *	shurjoPay v 1.00 API
-*	@authore: abdullah md. ayman
-*	@date: 31 May 2020
-*	@email: abdullahwasim42@gmail.com
-
-* Summary of set up
+*	@date: 08 JAN 2021
 
 
-Installation: 
-Use composer to install this package:
+To integrate the shurjoPay Payment Gateway in your Laravel project do the following tasks sequentially.
 
-composer require smasif/shurjopay-laravel-package
+Installation and Configuration
+Go to your project directory and use composer to install this package. Run the following command.
 
-Open  config/app.php file and append the following line in providers array:
+	composer require smasif/shurjopay-laravel-package
 
-         smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider::class,
+After successful installation of shurjopay-laravel-package, go to your project and open config folder and then click on app.php file. Append the following line in providers array.
 
-Configuration:
-Publish through configuration file:
+	smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider::class,
 
-         php artisan vendor:publish --provider="smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider"
+Now in order to publish ShurjopayServiceProvider class and run the following command
 
-It will create a config file 'shurjopay.php' in config folder.
+        php artisan vendor:publish –provider = "smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider"
 
-  Modify shurjopay.php or add the following Keys in .env file with the credentials provided from shurjomukhi
+It will automatically create a 'shurjopay.php' file in your project config folder
 
-      SHURJOPAY_SERVER_URL=
+After successfully doing the above steps do the following Modify shurjopay.php file or add the following Keys in .env file with the credentials provided from shurjoMukhi Limited
 
-      MERCHANT_USERNAME=
+	SHURJOPAY_SERVER_URL =
+	MERCHANT_USERNAME =
+	MERCHANT_PASSWORD =
+	MERCHANT_KEY_PREFIX =
 
-      MERCHANT_PASSWORD=
+Implementation
+Add the following line in the Class or Controller where the functionality will be implemented
+use smasif\ShurjopayLaravelPackage\ShurjopayService;
 
-      MERCHANT_KEY_PREFIX=
+Now add this line of code in your method where you want to call shurjoPay Payment Gateway. You can use any code segment of below
 
-How to Use:
-
-Add this in the Class or Controller where the functionality will be used
- use smasif\ShurjopayLaravelPackage\ShurjopayService;
-
- In the method:
-
- $shurjopay_service = new ShurjopayService(); //Initiate the object
-
- $tx_id = $shurjopay_service->generateTxId(); // Get transaction id. You can use custom id like: $shurjopay_service->generateTxId('123456');
-
- $success_route = route('Your route'); // optional.
-
- $shurjopay_service->sendPayment(2, $success_route); // You can call simply $shurjopay_service->sendPayment(2) without success route
-
-
+	$shurjopay_service = new ShurjopayService();
+	$tx_id = $shurjopay_service->generateTxId();
+	$shurjopay_service->sendPayment(2); //You will pass the amount variable in place of 2
+                
+ Or use the following one               
+                  
+	$shurjopay_service = new ShurjopayService();
+	$tx_id = $shurjopay_service->generateTxId();
+	$success_route = route('Your route'); //This is your custom route where you want to back after completing the transaction.
+	$shurjopay_service->sendPayment(2, $success_route);
 
 
+Note: (Optional) In the sendPayment method you can add as much parameter as you want but if you want to add more parameters in sendPayment method you need to add this parameters in sendPayment method of ShurjopayService.php file which is located in
+vendor/smasif/ shurjopay-laravel-package/src
+
+7) Go to this (vendor/smasif/ shurjopay-laravel-package/src) path and open the ShurjopayController.php file .There has a method called response.
+
+
+
+In order to save the payment response in database do the following
+	a) Add the following line of code in the ShurjopayController.php.
+
+	use DB;
+
+	b) Write the necessary query you want to add response in your database. It may be update database or insert into database.
+	
+	if ($res['status'])
+	{
+		echo "Success";
+		die();
+	}
+
+	c) Write the necessary query you want to add after failing transaction. It may be update database or insert into database.
+	if ($res['status'])
+	{
+		echo "Fail";
+		die();
+	}
+
+Now Test your application and oversees the response and interaction
