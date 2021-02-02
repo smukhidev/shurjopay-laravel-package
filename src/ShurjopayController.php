@@ -12,8 +12,6 @@ class ShurjopayController extends Controller
         $server_url = config('shurjopay.server_url');
         $response_encrypted = $request->spdata;
         $response_decrypted = file_get_contents($server_url . "/merchant/decrypt.php?data=" . $response_encrypted);
-        $response_data = simplexml_load_string($response_decrypted) or die("Error: Cannot create object");       
-
         $success_url = $request->get('success_url');
 
         if ($success_url) 
