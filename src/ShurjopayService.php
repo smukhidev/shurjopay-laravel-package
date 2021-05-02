@@ -35,21 +35,29 @@ class ShurjopayService
         if ($success_url) {
             $return_url .= "?success_url={$success_url}";
         }
-        $xml_data = 'spdata=<?xml version="1.0" encoding="utf-8"?>
-                            <shurjoPay><merchantName>' . $this->merchant_username . '</merchantName>
-                            <merchantPass>' . $this->merchant_password . '</merchantPass>
-                            <userIP>' . $this->client_ip . '</userIP>
-                            <uniqID>' . $this->tx_id . '</uniqID>
-                            <totalAmount>' . $amount . '</totalAmount>
-                            <paymentOption>shurjopay</paymentOption>
-                            <returnURL>' . $return_url . '</returnURL></shurjoPay>';
+        $data = array(
+            'merchantName' => 'spaytest',
+            'merchantPass' => 'JehPNXF58rXs',
+            'userIP' => '127.0.0.1',
+            'uniqID' => 'NOK'.'_playpen_'.rand(10,587458),
+            'custom1' => '',
+            'custom2' => '',
+            'custom3' => '',
+            'custom4' => '',
+            'school' => '',
+            'school' => '',
+            'totalAmount' => '10',
+            'paymentOption' => 'shurjopay',
+            'returnURL' => 'http://localhost/return.php',
+        );
+        $payload = array("spdata" => json_encode($data));
 
         $ch = curl_init();
         $server_url = config('shurjopay.server_url');
-        $url = $server_url . "/sp-data.php";
+        $url = $server_url . "/sp-pp.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);                //0 for a get request
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_data);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
