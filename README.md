@@ -78,7 +78,10 @@ In order to save the payment response in database do the following
 Now Test your application and oversees the response and interaction
 
 # Demo Card Infromation:
-Card Number: 1111111111111111
+Card Number: 1111 1111 1111 1111
+
 EXPIRE DATE: 12/30
+
 cvc: 123
-CARD OWNER: any name
+
+CARD OWNER: TEST
