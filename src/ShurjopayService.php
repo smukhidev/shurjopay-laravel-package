@@ -45,9 +45,10 @@ class ShurjopayService
             'custom3' => '',
             'custom4' => '',
             'school' => '',
-            'paymentterm' => '',
-            'minimumamount' => '',
+            'paymentterm' => '', //Tenure Months like 3,6,12,18,36
+            'minimumamount' => '', //Minimum Amount 10000
             'totalAmount' => '10',
+            'is_emi'=>0 //0 NO EMI 1 EMI True
             'paymentOption' => 'shurjopay',
             'returnURL' => 'http://localhost/return.php',
         );
@@ -67,4 +68,5 @@ class ShurjopayService
         print_r($response);
 
     }
-}
+},
+,,,
