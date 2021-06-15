@@ -23,8 +23,8 @@ class ShurjopayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make('smasif\ShurjopayLaravelPackage\ShurjopayService');
-        $this->app->make('smasif\ShurjopayLaravelPackage\ShurjopayController');
+        $this->app->make('smukhidev\ShurjopayLaravelPackage\ShurjopayService');
+        $this->app->make('smukhidev\ShurjopayLaravelPackage\ShurjopayController');
         $this->publishes([
             __DIR__ . '/config/shurjopay.php' =>  config_path('shurjopay.php'),
         ], 'config');
