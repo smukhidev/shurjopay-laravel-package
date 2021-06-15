@@ -29,27 +29,27 @@ class ShurjopayService
         return $tx_id;
     }
 
-    public function sendPayment($data, $success_url = null)
+    public function sendPayment($reqdata, $success_url = null)
     {
         $return_url = route('shurjopay.response');
         if ($success_url) {
             $return_url .= "?success_url={$success_url}";
         }
-        $amount=$data['amount'];
+        $amount=$reqdata['amount'];
         $data = array(
             'merchantName' => $this->merchant_username,
             'merchantPass' => $this->merchant_password,
             'userIP' => $this->client_ip,
             'uniqID' => $this->tx_id,
-            'custom1' => '',
-            'custom2' => '',
-            'custom3' => '',
-            'custom4' => '',
-            'school' => '',
+            'custom1' => $reqdata['custom1'],
+            'custom2' => $reqdata['custom2'],
+            'custom3' => $reqdata['custom3'],
+            'custom4' => $reqdata['custom4'],
+            //'school' => $reqdata['amount'],
             'paymentterm' => '', //Tenure Months like 3,6,12,18,36
             'minimumamount' => '', //Minimum Amount 10000
             'totalAmount' => $amount,
-            'is_emi'=>0 //0 NO EMI 1 EMI True
+            'is_emi'=>$reqdata['is_emi'] //0 NO EMI 1 EMI True
             'paymentOption' => 'shurjopay',
             'returnURL' => $return_url,
         );
