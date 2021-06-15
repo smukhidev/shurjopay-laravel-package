@@ -11,7 +11,7 @@ class ShurjopayController extends Controller
     {
         $server_url = config('shurjopay.server_url');
         $response_encrypted = $request->spdata;
-        $response_decrypted = file_get_contents($server_url . "/merchant/decrypt_p.php?data=" . $response_encrypted);
+        $response_data = file_get_contents($server_url . "/merchant/decrypt_p.php?data=" . $response_encrypted);
         $success_url = $request->get('success_url');
 
         if ($success_url) 
