@@ -34,46 +34,41 @@ Implementation
 Add the following line in the Class or Controller where the functionality will be implemented
 use smukhidev\ShurjopayLaravelPackage\ShurjopayService;
 
-Now add this line of code in your method where you want to call shurjoPay Payment Gateway. You can use any code segment of below
-
-	$shurjopay_service = new ShurjopayService();
-	$tx_id = $shurjopay_service->generateTxId();
-	$shurjopay_service->sendPayment(2); //You will pass the amount variable in place of 2
-                
- Or use the following one               
+Now add this line of code in your method where you want to call shurjoPay Payment Gateway. You can use any code segment of below              
                   
 	$shurjopay_service = new ShurjopayService();
 	$tx_id = $shurjopay_service->generateTxId();
 	$success_route = route('Your route'); //This is your custom route where you want to back after completing the transaction.
-	$shurjopay_service->sendPayment(2, $success_route);
+	$data=array(
+		'amount'=>$request->amount,
+		'custom1'=>$request->company_name,
+		'custom2'=>$request->email,
+		'custom3'=>$request->name,
+		'custom4'=>$request->number
+	);
+	$shurjopay_service->sendPayment($data, $success_route);
 
 
 Note: (Optional) In the sendPayment method you can add as much parameter as you want but if you want to add more parameters in sendPayment method you need to add this parameters in sendPayment method of ShurjopayService.php file which is located in
 vendor/smukhidev/ shurjopay-laravel-package/src
 
-7) Go to this (vendor/smukhidev/ shurjopay-laravel-package/src) path and open the ShurjopayController.php file .There has a method called response.
+7) Go to successurl .There call a method $shurjopay_service->decrypt($request->spdata); it will return object.
 
+ {
+  "txID": "NOK20210615081852_100",
+  "bankTxID":"Xid70lopzz",
+  "bankTxStatus": "SUCCESS",
+  "txnAmount": "100",
+  "spCode": "000",
+  "spCodeDes": "Cancel",
+  "custom1": "Shurjomukhi Ltd",
+  "custom2": "nazmus.shahadat@shurjomukhi.com.bd",
+  "custom3": "Nazmus Shahadat",
+  "custom4": "01829616787",
+  "paymentOption": "CARD",
+  "paymentTime": "2021-06-16 02:18:51"
+}
 
-
-In order to save the payment response in database do the following
-	a) Add the following line of code in the ShurjopayController.php.
-
-	use DB;
-
-	b) Write the necessary query you want to add response in your database. It may be update database or insert into database.
-	
-	if ($res['status'])
-	{
-		echo "Success";
-		die();
-	}
-
-	c) Write the necessary query you want to add after failing transaction. It may be update database or insert into database.
-	if ($res['status'])
-	{
-		echo "Fail";
-		die();
-	}
 
 Now Test your application and oversees the response and interaction
 
