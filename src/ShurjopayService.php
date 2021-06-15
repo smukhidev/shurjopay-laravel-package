@@ -29,17 +29,18 @@ class ShurjopayService
         return $tx_id;
     }
 
-    public function sendPayment($amount, $success_url = null)
+    public function sendPayment($data, $success_url = null)
     {
         $return_url = route('shurjopay.response');
         if ($success_url) {
             $return_url .= "?success_url={$success_url}";
         }
+        $amount=$data['amount'];
         $data = array(
-            'merchantName' => 'spaytest',
-            'merchantPass' => 'JehPNXF58rXs',
-            'userIP' => '127.0.0.1',
-            'uniqID' => 'NOK'.'_playpen_'.rand(10,587458),
+            'merchantName' => $this->merchant_username,
+            'merchantPass' => $this->merchant_password,
+            'userIP' => $this->client_ip,
+            'uniqID' => $this->tx_id,
             'custom1' => '',
             'custom2' => '',
             'custom3' => '',
@@ -47,10 +48,10 @@ class ShurjopayService
             'school' => '',
             'paymentterm' => '', //Tenure Months like 3,6,12,18,36
             'minimumamount' => '', //Minimum Amount 10000
-            'totalAmount' => '10',
+            'totalAmount' => $amount,
             'is_emi'=>0 //0 NO EMI 1 EMI True
             'paymentOption' => 'shurjopay',
-            'returnURL' => 'http://localhost/return.php',
+            'returnURL' => $return_url,
         );
         $payload = array("spdata" => json_encode($data));
 
