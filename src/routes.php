@@ -1,3 +1,3 @@
 <?php
 
-    Route::post('/response', 'smasif\ShurjopayLaravelPackage\ShurjopayController@response')->name('shurjopay.response');
+    Route::post('/response', 'smukhidev\ShurjopayLaravelPackage\ShurjopayController@response')->name('shurjopay.response');
