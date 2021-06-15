@@ -7,40 +7,37 @@ use Illuminate\Http\Request;
 
 class ShurjopayController extends Controller
 {
-    public function response(Request $request)
+   public function response(Request $request)
     {
         $server_url = config('shurjopay.server_url');
         $response_encrypted = $request->spdata;
-        $response_data = file_get_contents($server_url . "/merchant/decrypt_p.php?data=" . $response_encrypted);
+        $response_decrypted = file_get_contents($server_url . "/merchant/decrypt.php?data=" . $response_encrypted);
+        $data = simplexml_load_string($response_decrypted) or die("Error: Cannot create object");
+        $tx_id = $data->txID;
+        $bank_tx_id = $data->bankTxID;
+        $amount = $data->txnAmount;
+        $bank_status = $data->bankTxStatus;
+        $sp_code = $data->spCode;
+        $sp_code_des = $data->spCodeDes;
+        $sp_payment_option = $data->paymentOption;
+        $status = "";
+        switch ($sp_code) {
+            case '000':
+                $res = array('status' => false, 'msg' => 'Action Successful');
+                $status = "Success";
+                break;
+            case '001':
+                $status = "Failed";
+                $res = array('status' => false, 'msg' => 'Action Failed');
+                break;
+        }
+
         $success_url = $request->get('success_url');
 
-        if ($success_url) 
-        {
-            
-            if(is_object($response_data))
-            {
-                $html = '<form action=".$success_url."  method="post" id="sp_response">';
-            	foreach($response_data as $key => $val)
-                {
-                    $html .= '<input type="hidden" name=".$key." value=".$val." />'; 
-                }
-                $html .='</form>'; 
-                $html .= '<script>document.getElementById("sp_response").submit();</script>';
-                echo $html;
-            }
+        if ($success_url) {
+            header("location:" . $success_url . "?spdata={$response_encrypted}");
+			die();
         }
-        else
-        {
-            // Get response from shurjoPay in with spCode 000 or 001. '000' for successful and '001' for failed transaction.
-            if ( isset($response_data->spCode) && $response_data->spCode == '000' ) 
-            {
-               die( "Success" );
-            } 
-            else
-            {
-               die( "Fail" );
-            }
-        }
-
+        
     }
 }
