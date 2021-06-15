@@ -44,7 +44,8 @@ Now add this line of code in your method where you want to call shurjoPay Paymen
 		'custom1'=>$request->company_name,
 		'custom2'=>$request->email,
 		'custom3'=>$request->name,
-		'custom4'=>$request->number
+		'custom4'=>$request->number,
+		'is_emi'=>0 //0 No EMI 1 EMI active
 	);
 	$shurjopay_service->sendPayment($data, $success_route);
 
