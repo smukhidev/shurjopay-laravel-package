@@ -1,6 +1,6 @@
 <?php
 
-namespace smasif\ShurjopayLaravelPackage;
+namespace smukhidev\ShurjopayLaravelPackage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
