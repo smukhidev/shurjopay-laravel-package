@@ -23,7 +23,7 @@ class ShurjopayController extends Controller
         $status = "";
         switch ($sp_code) {
             case '000':
-                $res = array('status' => false, 'msg' => 'Action Successful');
+                $res = array('status' => true, 'msg' => 'Action Successful');
                 $status = "Success";
                 break;
             case '001':
