@@ -11,7 +11,7 @@ To integrate the shurjoPay Payment Gateway in your Laravel project do the follow
 Installation and Configuration
 Go to your project directory and use composer to install this package. Run the following command.
 
-	composer require smasif/shurjopay-laravel-package
+	composer require  smukhidev/shurjopay-laravel-package
 
 After successful installation of shurjopay-laravel-package, go to your project and open config folder and then click on app.php file. Append the following line in providers array.
 
