@@ -19,7 +19,7 @@ After successful installation of shurjopay-laravel-package, go to your project a
 
 Now in order to publish ShurjopayServiceProvider class and run the following command
 
-        php artisan vendor:publish –provider = "smasif\ShurjopayLaravelPackage\ShurjopayServiceProvider"
+        php artisan vendor:publish –provider = "smukhidev\ShurjopayLaravelPackage\ShurjopayServiceProvider"
 
 It will automatically create a 'shurjopay.php' file in your project config folder
 
