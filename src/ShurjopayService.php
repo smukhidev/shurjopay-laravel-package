@@ -57,7 +57,8 @@ class ShurjopayService
 
         $ch = curl_init();
         $server_url = config('shurjopay.server_url');
-        $url = $server_url . "/sp-pp.php";
+        // $url = $server_url . "/sp-pp.php";
+        $url = $server_url . "/sp-data.php";
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);                //0 for a get request
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
